@@ -46,9 +46,9 @@ This document records the chat transcript, changes made, and support guides comp
      * Truncated `essl_attendance_logs` and `adms_commands` history tables.
 
 ### G. Dynamic Local & Cloud Server Modes
-* **Requirement**: Provide an option to alternate between cloud Vercel hosting and running both the backend and biometric servers locally on an office network to save costs.
+* **Requirement**: Provide an option to alternate between cloud Vercel hosting and running both the backend and biometric ADMS servers locally on an office network to save costs.
 * **Solution**:
-  1. Added a **Server Configuration** card in `SettingsScreen` that lets the admin choose between **Cloud Mode** and **Local/Custom Server** (where they can type their local office IP, e.g., `http://192.168.0.100:3000`).
+  1. Added a **Server Configuration** card in `SettingsScreen` that lets the admin choose between **Cloud Mode** and **Local/Custom Server** (where they can configure their **Local Backend URL**, e.g., `http://192.168.0.100:3000` and their **Local ADMS URL**, e.g., `http://192.168.0.100:8081`).
   2. Saved choices persistently using `SharedPreferences` and updated in-memory connection URLs in real-time.
   3. Fixed startup crash on Android phones by making `MainActivity` inherit from `FlutterFragmentActivity`, matching parent layout styles to `Theme.AppCompat.Light.NoActionBar`, and applying the `org.jetbrains.kotlin.android` Kotlin compiler Gradle plugin in `build.gradle.kts` to compile the source code properly.
 
