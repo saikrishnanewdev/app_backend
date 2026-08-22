@@ -56,7 +56,21 @@ This document records the chat transcript, changes made, and support guides comp
 
 ## 2. Command Reference Guide
 
-### Running Locally
+### Running Windows executables locally (Recommended for Client)
+We packaged both servers as standalone Windows `.exe` files. You can copy these files to the client machine and run them without installing Node.js:
+1. **File Locations**:
+   * **Backend server**: [`bio-backend.exe`](file:///c:/Users/sveer/Desktop/BioAttendance/backend/bio-backend.exe)
+   * **ADMS server**: [`bio-adms.exe`](file:///c:/Users/sveer/Desktop/BioAttendance/adms-server/bio-adms.exe)
+2. **Environment Variables**:
+   * Create a `.env` file in the same folder as the `.exe` files.
+   * Add the following parameters:
+     ```env
+     SUPABASE_DB_PASSWORD=Abs@project87456123
+     PORT=3000   # (use 8081 for bio-adms.exe)
+     ```
+3. **Execution**: Double-click the `.exe` file to start the servers on their local ports!
+
+### Running Dev Mode Locally
 * **Backend API Server**:
   ```cmd
   cd C:\Users\sveer\Desktop\BioAttendance\backend
