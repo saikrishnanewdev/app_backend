@@ -1,5 +1,6 @@
 const path = require("path");
 require("dotenv").config({ path: path.resolve(__dirname, ".env") });
+require("dotenv").config({ path: path.resolve(process.cwd(), ".env") });
 const { Client } = require("pg");
 
 const db = new Client({

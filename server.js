@@ -1088,7 +1088,7 @@ app.delete(
 
             const existingEmployee =
                 await db.query(
-                    `SELECT *
+                    `SELECT id, employee_code, name
                      FROM employees
                      WHERE id = $1`,
                     [id]
@@ -1100,6 +1100,31 @@ app.delete(
                     error: "Employee not found"
                 });
 
+            }
+
+            const employee = existingEmployee.rows[0];
+
+            // -------------------------------------------------
+            // Enqueue ADMS delete commands to biometric devices
+            // -------------------------------------------------
+            try {
+                const devicesResult = await db.query(
+                    "SELECT id, device_code FROM essl_devices WHERE status = 'active'"
+                );
+
+                for (const device of devicesResult.rows) {
+                    await db.query(
+                        `INSERT INTO adms_commands (device_code, command_string, status)
+                         VALUES ($1, $2, 'pending')`,
+                        [
+                            device.device_code,
+                            `DATA DELETE USERINFO PIN=${employee.employee_code}`
+                        ]
+                    );
+                    console.log(`🗑️ Enqueued delete command for employee ${employee.name} (PIN: ${employee.employee_code}) to device ${device.device_code}`);
+                }
+            } catch (err) {
+                console.error("⚠️ Error enqueuing delete command to ADMS:", err);
             }
 
             // -------------------------------------------------
