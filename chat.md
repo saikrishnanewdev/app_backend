@@ -46,11 +46,12 @@ This document records the chat transcript, changes made, and support guides comp
      * Truncated `essl_attendance_logs` and `adms_commands` history tables.
 
 ### G. Dynamic Local & Cloud Server Modes
-* **Requirement**: Provide an option to alternate between cloud Vercel hosting and running both the backend and biometric ADMS servers locally on an office network to save costs.
+* **Requirement**: Keep the main App Backend API server running stably in the cloud (Vercel), while allowing the ADMS server to toggle between local hosting (on the client's office network) and cloud hosting.
 * **Solution**:
-  1. Added a **Server Configuration** card in `SettingsScreen` that lets the admin choose between **Cloud Mode** and **Local/Custom Server** (where they can configure their **Local Backend URL**, e.g., `http://192.168.0.100:3000` and their **Local ADMS URL**, e.g., `http://192.168.0.100:8081`).
-  2. Saved choices persistently using `SharedPreferences` and updated in-memory connection URLs in real-time.
-  3. Fixed startup crash on Android phones by making `MainActivity` inherit from `FlutterFragmentActivity`, matching parent layout styles to `Theme.AppCompat.Light.NoActionBar`, and applying the `org.jetbrains.kotlin.android` Kotlin compiler Gradle plugin in `build.gradle.kts` to compile the source code properly.
+  1. Added an **ADMS Server Configuration** card in `SettingsScreen` that lets the admin choose between **Cloud ADMS (Default)** and **Local ADMS Server** (where they configure their **Local ADMS URL**, e.g., `http://192.168.0.100:8081`).
+  2. The primary app backend API connection is locked to always use the Vercel cloud server (`https://appbackend-smoky.vercel.app`) to ensure stable employee management and reports.
+  3. Saved choices persistently using `SharedPreferences` and updated in-memory ADMS connection URLs in real-time.
+  4. Fixed startup crash on Android phones by making `MainActivity` inherit from `FlutterFragmentActivity`, matching parent layout styles to `Theme.AppCompat.Light.NoActionBar`, and applying the `org.jetbrains.kotlin.android` Kotlin compiler Gradle plugin in `build.gradle.kts` to compile the source code properly.
 
 ---
 
